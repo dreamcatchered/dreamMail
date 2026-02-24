@@ -1,0 +1,689 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --border-color: #e0e0e0;
+    --card-bg: #ffffff;
+    --accent: #000000;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 16px;
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.1s ease;
+}
+
+/* Specific Card Layouts */
+.welcome-card {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.controls-card {
+    grid-column: 1 / -1;
+    gap: 12px;
+}
+
+.emails-card {
+    grid-column: 1 / -1;
+    min-height: 200px;
+}
+
+/* Typography */
+h1 { font-size: 20px; margin: 0; font-weight: 800; letter-spacing: -0.5px; }
+h2 { font-size: 16px; margin: 0; font-weight: 600; }
+h3 { font-size: 12px; text-transform: uppercase; color: #888; margin-bottom: 10px; letter-spacing: 0.5px; font-weight: 600; }
+p { margin: 0; font-size: 14px; color: #333; }
+
+/* Search & Aliases */
+.search-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background: #f9f9f9;
+}
+
+.alias-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.alias-scroller {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    flex: 1;
+    scrollbar-width: none; /* Firefox */
+    padding-bottom: 2px;
+}
+.alias-scroller::-webkit-scrollbar { display: none; }
+
+.alias-pill {
+    padding: 6px 12px;
+    background: #f0f0f0;
+    border-radius: 16px;
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+.alias-pill.active {
+    background: #000;
+    color: #fff;
+}
+
+.icon-btn {
+    background: #000;
+    color: #fff;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Email List */
+.email-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.email-item {
+    padding: 8px 0; /* Reduced padding */
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
+.email-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 2px solid #ddd;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    transition: all 0.2s;
+    position: relative;
+    background: #fff;
+    flex-shrink: 0;
+}
+
+.email-checkbox:checked {
+    background: #000;
+    border-color: #000;
+}
+
+.email-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 4px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.email-checkbox:hover {
+    border-color: #999;
+}
+
+.btn-delete-small {
+    background: #ffebee;
+    color: #d32f2f;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn-delete-small:hover {
+    background: #ffcdd2;
+}
+
+.emails-header-actions h3 {
+    margin-bottom: 0;
+}
+
+.email-item:active { background: #fafafa; }
+.email-item:last-child { border-bottom: none; }
+
+.email-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px; /* Tighter gap between lines */
+}
+
+.email-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0; /* Removed margin */
+}
+
+.email-sender {
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+}
+
+.email-date {
+    font-size: 12px;
+    color: #888;
+}
+
+.email-subject {
+    font-size: 14px;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.email-preview {
+    font-size: 12px;
+    color: #888;
+}
+
+/* Modal & Overlays */
+.modal-overlay, .loading-screen, .error-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.modal-card {
+    background: #fff;
+    padding: 24px;
+    border-radius: 16px;
+    width: 80%;
+    max-width: 320px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+/* Modal Inputs */
+.create-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-local {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    background: #f9f9f9;
+}
+
+.at-symbol {
+    font-weight: bold;
+    color: #888;
+}
+
+.select-domain {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    background: #f9f9f9;
+    width: 100%;
+}
+
+.btn-primary {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.btn-secondary {
+    background: transparent;
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* User Info - Base Style */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 1;
+}
+
+/* Mobile Adaptation for User Info */
+@media (max-width: 767px) {
+    .user-info {
+        margin-left: auto; /* Push to right */
+        padding-left: 10px;
+    }
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Allow truncation */
+    flex: 1;
+}
+.user-details h2 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    line-height: 1.2;
+}
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #eee;
+    flex-shrink: 0;
+}
+.status-badge {
+    font-size: 12px;
+    color: #4CAF50;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.status-badge::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: #4CAF50;
+    border-radius: 50%;
+}
+
+/* Settings List */
+.settings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.settings-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+.settings-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Enable truncation in flex item */
+    flex: 1;
+    margin-right: 8px;
+}
+.settings-alias {
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.settings-status {
+    font-size: 12px;
+}
+.status-active { color: #4CAF50; }
+.status-inactive { color: #F44336; }
+
+.settings-actions {
+    display: flex;
+    gap: 8px;
+}
+.btn-toggle {
+    background: #e0e0e0;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+}
+.btn-delete {
+    background: #ffebee;
+    color: #d32f2f;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.loader {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #000;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* Email View */
+.email-view-container, .settings-view-container {
+    height: 100vh;
+}
+.email-detail-card, .settings-card {
+    height: calc(100vh - 32px);
+    overflow-y: auto;
+}
+.back-btn {
+    border: none;
+    background: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 16px;
+    text-align: left;
+    font-weight: 600;
+    color: #000;
+}
+.email-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #666;
+    margin-top: 8px;
+}
+.divider {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 16px 0;
+}
+.email-iframe {
+    width: 100%;
+    border: none;
+    display: block;
+    min-height: 400px;
+}
+.text-body {
+    white-space: pre-wrap;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* PC / Tablet Adaptation */
+@media (min-width: 768px) {
+    body {
+        background-color: #f0f2f5; /* Slightly darker bg for contrast */
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 1000px;
+        width: 100%;
+        padding: 40px;
+        margin: 0;
+    }
+    
+    .bento-grid {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 24px;
+        align-items: start; /* Prevents stretching */
+    }
+    
+    .welcome-card {
+        grid-column: 1;
+        grid-row: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        text-align: left;
+    }
+
+    .welcome-card h1 {
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 12px;
+        margin-bottom: 4px;
+    }
+
+    .user-info {
+        width: 100%;
+        padding-top: 4px;
+    }
+
+    .controls-card {
+        grid-column: 1;
+        grid-row: auto;
+        /* Let it take natural height */
+    }
+
+    .emails-card {
+        grid-column: 2;
+        grid-row: 1 / span 10;
+        /* Fixed height for internal scrolling is better for "app-like" feel */
+        height: calc(100vh - 40px); /* Fill screen minus margins */
+        display: flex;
+        flex-direction: column;
+        overflow: hidden; 
+        padding-bottom: 0;
+    }
+    
+    .emails-list-container {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 8px;
+        margin-bottom: 10px;
+    }
+
+    /* Scrollbar Styling */
+    .emails-list-container::-webkit-scrollbar {
+        width: 8px;
+    }
+    .emails-list-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+    .emails-list-container::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 4px;
+    }
+    .emails-list-container::-webkit-scrollbar-thumb:hover {
+        background: #999;
+    }
+
+    /* Alias Scroller on PC - vertical stack */
+    .alias-scroller {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow: visible;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+    
+    .alias-pill {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+}
+
+/* Pagination Controls */
+.btn-page {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    color: #333;
+}
+.btn-page:hover:not(:disabled) {
+    background: #f5f5f5;
+    border-color: #ccc;
+}
+.btn-page:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f9f9f9;
+}
+
+/* PC Search Input */
+#pc-search-placeholder input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    font-size: 15px;
+    background: #fff;
+    transition: all 0.2s;
+    outline: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/circle%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 12px center;
+    padding-left: 40px;
+}
+
+#pc-search-placeholder input:focus {
+    border-color: #000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.delete-email-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-email-btn:hover {
+    opacity: 1;
+    background: rgba(255, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Hover effects for PC */
+.email-item:hover {
+    background-color: #f1f3f5;
+}
+
+.alias-pill:hover {
+        background-color: #e0e0e0;
+        transform: translateY(-2px);
+    }
+    .alias-pill.active:hover {
+        background-color: #333;
+    }
+    
+    .btn-primary:hover, .btn-secondary:hover, .icon-btn:hover {
+        opacity: 0.8;
+        transform: scale(1.05);
+        transition: all 0.2s;
+    }
+    
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    ::-webkit-scrollbar-track {
+        background: transparent; 
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #bbb; 
+        border-radius: 5px;
+        border: 2px solid #fff; /* Padding around thumb */
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #999; 
+    }
+
+    /* Modal Tweaks */
+    .modal-card {
+        max-width: 400px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
